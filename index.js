@@ -18,6 +18,7 @@ app.post("/adduser",(req,res) =>{
 
 
 
+
 //Show User
 app.get("/showuser",(req,res) =>{
     let sql = "SELECT * FROM `employee`"
@@ -31,6 +32,16 @@ app.get("/showuser",(req,res) =>{
 //Show a particular user
 app.get("/showuser/:email",(req,res) =>{
     let sql = `SELECT * FROM employee WHERE email ='${req.params.email}'`
+    db.query(sql,(err,result) =>{
+        if(err) throw err
+        else
+        res.json(result)
+    })
+})
+
+app.delete("/deleteUser/:email",(req,res) =>{
+    let emailId = req.params.email
+    let sql = `DELETE FROM employee where email = '${emailId}'`
     db.query(sql,(err,result) =>{
         if(err) throw err
         else
